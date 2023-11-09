@@ -1,17 +1,60 @@
 .container{
     width: 400px;
-    height: 100%;
+    height: 690px;
     margin-top: 25px;
     margin-left: 25px;
     border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.log-in-slide {
+    position: absolute;
+    width: 400px;
+    height: 690px;
+    z-index: 1;
+    border-radius: 12px;
+    margin-top: 690px;
+}
+
+.log-in-slide.active {
+    margin-top: 0px;
+    transition-property: margin-top, opacity, z-index;
+    transition-duration: 1s;
+}
+
+.log-in-slide.inactive {
+    margin-top: 690px;
+    transition-property: margin-top, opacity, z-index;
+    transition-duration: 1s;
+}
+
+.log-in {
+    width: 260px;
+}
+
+.register-in {
+    width: 260px;
+}
+
+.register-in-button {
+    width: 260px;
+}
+
+.log-in-button {
+    width: 260px;
 }
 
 .header{
+    position: relative;
+    width: 400px;
+    height: 80px;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
 }
 
 .routes{
+    position: relative;
     width: 400px;
     height: 550px;
     border: 2px solid;
@@ -19,6 +62,7 @@
 }
 
 .footer{
+    position: relative;
     height: 58px;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
