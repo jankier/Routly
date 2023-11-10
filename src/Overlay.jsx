@@ -6,13 +6,15 @@ function Overlay(){
 
     // var log_in = document.getElementsByClassName("log-in");
     var register_in = document.getElementsByClassName("register-in");
+    var email_in_use = document.getElementsByClassName("email-in-use");
+    var log_in_failed = document.getElementsByClassName("log-in-failed");
 
     const [loginSlide, setLoginSlide] = useState(false);
     const [notAMember, setNotAMember] = useState(false);
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const [registeredName, setRegisteredName] = useState('');
+    const [registeredEmail, setRegisteredEmail] = useState('');
     const [registeredPassword, setRegisteredPassword] = useState('');
 
     const handleToggleLogin = () => {
@@ -23,16 +25,41 @@ function Overlay(){
         setNotAMember(!notAMember);
     }
 
-    function registerUser(ev) {
+    
+    async function registerUser(ev) {
         ev.preventDefault();
-        axios.post('/register', {
-            email,
-            name,
-            password,
-        });
-        console.log(register_in);
-        // register_in[0].value = "";
-        handleSignUpMember();
+        try {
+            await axios.post('/register', {
+                email,
+                name,
+                password,
+            });
+            setEmail('');
+            setName('');
+            setPassword('');
+            email_in_use[0].style.display = 'none';
+            handleSignUpMember();
+        } catch (error) {
+            email_in_use[0].style.display = 'flex';
+        }
+    }
+
+    async function handleLoginSubmit(ev) {
+        ev.preventDefault();
+        try{
+            await axios.post('/login', {
+                registeredEmail,
+                registeredPassword
+            });
+            setRegisteredEmail('');
+            setRegisteredPassword('');
+            log_in_failed[0].style.display = 'none';
+        } catch (error) {
+            setRegisteredEmail('');
+            setRegisteredPassword('');
+            log_in_failed[0].style.display = 'flex';
+        }
+        
     }
 
     // onChange={event => setSearchInput(event.target.value)}
@@ -50,17 +77,23 @@ function Overlay(){
                             <span className="flex items-center justify-center text-3xl pt-40">
                                 Log in
                             </span>
-                            <form className="flex flex-col items-center justify-center pt-5">
+                            <form onSubmit={handleLoginSubmit} className="flex flex-col items-center justify-center pt-5">
                                 <input className="log-in text-black p-2 border rounded-2xl outline-none select-none" 
-                                        value={registeredName} 
-                                        onChange={ev => setRegisteredName(ev.target.value)} 
+                                        value={registeredEmail} 
+                                        onChange={ev => setRegisteredEmail(ev.target.value)} 
                                         type="text" 
-                                        placeholder="Username"/>
+                                        placeholder="Email"/>
                                 <input className="log-in text-black p-2 border rounded-2xl outline-none select-none mt-2"
                                         value={registeredPassword} 
                                         onChange={ev => setRegisteredPassword(ev.target.value)}
                                         type="password"
                                         placeholder="Password"/>
+                                <div className="log-in-failed text-orange-500 mt-1 flex duration-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                    </svg>
+                                    <div className='ml-1'>Log in failed. Try again later.</div>
+                                </div>
                                 <button className="log-in-button border mt-2 p-2 rounded-2xl hover:bg-white duration-500 select-none">Log in</button>
                             </form>
                             <div className="text-xs text-center mt-2 text-gray-500">
@@ -80,6 +113,12 @@ function Overlay(){
                                         onChange={ev => setEmail(ev.target.value)} 
                                         type="email" 
                                         placeholder="Email"/>
+                                <div className="email-in-use text-orange-500 mt-1 flex duration-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                    </svg>
+                                    <div className='ml-1'>This email is already in use.</div>
+                                </div>
                                 <input className="register-in text-black p-2 border rounded-2xl outline-none select-none mt-2" 
                                         value={name} 
                                         onChange={ev => setName(ev.target.value)} 

@@ -45,6 +45,14 @@
     width: 260px;
 }
 
+.email-in-use {
+    display: none;
+}
+
+.log-in-failed {
+    display: none;
+}
+
 .header{
     position: relative;
     width: 400px;
