@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import axios from 'axios';
 import { UserContext } from "../../UserContext";
+import "./UserPage.css"
 const bcrypt = require('bcryptjs');
 
 function UserPage ({handleToggleLogin, loginSlide}) {
@@ -9,6 +10,7 @@ function UserPage ({handleToggleLogin, loginSlide}) {
     // var register_in = document.getElementsByClassName("register-in");
     var email_in_use = document.getElementsByClassName("email-in-use");
     var log_in_failed = document.getElementsByClassName("log-in-failed");
+    var field_must_be_filled = document.getElementsByClassName("field-must-be-filled");
 
     const [notAMember, setNotAMember] = useState(false);
     const [email, setEmail] = useState('');
@@ -32,15 +34,23 @@ function UserPage ({handleToggleLogin, loginSlide}) {
                 email,
                 name,
                 password:bcrypt.hashSync(password, bcryptSalt),
-            });
+            })
             setEmail('');
             setName('');
             setPassword('');
-            email_in_use[0].style.display = 'none';
             handleSignUpMember();
         } catch (error) {
             console.log(error);
-            email_in_use[0].style.display = 'flex';
+            if (error.response.status === 422){
+                email_in_use[0].style.display = 'flex';
+                field_must_be_filled[0].style.display = 'none';
+            } else if (error.response.status === 406){
+                field_must_be_filled[0].style.display = 'flex';
+                email_in_use[0].style.display = 'none';  
+            } else {
+                email_in_use[0].style.display = 'none';
+                field_must_be_filled[0].style.display = 'none';
+            }
         }
     }
 
@@ -111,7 +121,7 @@ function UserPage ({handleToggleLogin, loginSlide}) {
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                                             </svg>
-                                            <div className='ml-1'>Log in failed. Email or password is incorrect.</div>
+                                            <div className='ml-1'>Email or password is incorrect.</div>
                                         </div>
                                         <button className="log-in-button border mt-2 p-2 rounded-2xl hover:bg-white duration-500 select-none">Log in</button>
                                     </form>
@@ -149,6 +159,12 @@ function UserPage ({handleToggleLogin, loginSlide}) {
                                                 type="password" 
                                                 autoComplete="new password"
                                                 placeholder="Password"/>
+                                        <div className="field-must-be-filled text-orange-500 mt-1 flex duration-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                            </svg>
+                                            <div className='ml-1'>All fields must be filled.</div>
+                                        </div>
                                         <button className="register-in-button border mt-2 p-2 rounded-2xl hover:bg-white duration-500 select-none">Sign up</button>
                                     </form>
                                     <div className="text-xs text-center mt-2 text-gray-500">

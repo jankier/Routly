@@ -1,0 +1,51 @@
+.log-in-slide {
+    position: absolute;
+    width: 400px;
+    height: 690px;
+    z-index: 1;
+    border-radius: 12px;
+    margin-top: 690px;
+}
+
+.log-in-slide.active {
+    margin-top: 0px;
+    transition-property: margin-top, opacity, z-index;
+    transition-duration: 1s;
+}
+
+.log-in-slide.inactive {
+    margin-top: 690px;
+    transition-property: margin-top, opacity, z-index;
+    transition-duration: 1s;
+}
+
+.log-in {
+    width: 260px;
+}
+
+.register-in {
+    width: 260px;
+}
+
+.register-in-button {
+    width: 260px;
+}
+
+.log-in-button {
+    width: 260px;
+}
+.log-out-button {
+    width: 260px;
+}
+
+.email-in-use {
+    display: none;
+}
+
+.log-in-failed {
+    display: none;
+}
+
+.field-must-be-filled {
+    display: none;
+}

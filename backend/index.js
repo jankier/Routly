@@ -24,15 +24,18 @@ app.get('/test', (req, res) => {
 
 app.post('/register', async (req, res) => {
     const {email, name, password} = req.body;
-    try{
+    const userInDatabase = await User.findOne({email: email});
+    if (!email || !name || !password) {
+        res.status(406).json('all fields must be filled');
+    } else if (userInDatabase){
+        res.status(422).json('user already in database');
+    } else {
         const user = await User.create({
             email,
             name,
             password,
         });
         res.json(user);
-    } catch (error) {
-        res.status(422).json(error);
     }
 })
 
