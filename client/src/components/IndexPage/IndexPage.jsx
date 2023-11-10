@@ -1,7 +1,7 @@
 function IndexPage(){
     return (
-      <div className=''>
-        
+      <div>
+
       </div>
     );
 }

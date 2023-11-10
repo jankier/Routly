@@ -5,7 +5,7 @@
     margin-left: 25px;
     border-radius: 12px;
     overflow: hidden;
-    position: relative;
+    position: fixed;
 }
 
 .log-in-slide {
@@ -42,6 +42,9 @@
 }
 
 .log-in-button {
+    width: 260px;
+}
+.log-out-button {
     width: 260px;
 }
 
