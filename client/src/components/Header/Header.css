@@ -1,7 +1,19 @@
 .header{
-    position: relative;
+    position: static;
     width: 400px;
     height: 80px;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
+}
+
+.logo {
+    position: fixed;
+    left: 150px;
+}
+
+.user-button {
+    width: 50px;
+    height: 60px;
+    position: fixed;
+    left: 360px;
 }

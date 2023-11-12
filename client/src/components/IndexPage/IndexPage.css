@@ -1,0 +1,34 @@
+.flex-box {
+    height: 100%;
+    width: 100%;
+}
+
+.icon-box {
+    height: 48px;
+    width: 48px;
+}
+
+.my-location{
+    border: 1px solid #282641;
+    border-radius: 20%;
+}
+
+.loading {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #00aaff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 

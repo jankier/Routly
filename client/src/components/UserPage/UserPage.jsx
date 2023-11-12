@@ -151,7 +151,8 @@ function UserPage ({handleToggleLogin, loginSlide}) {
                                         <input className="register-in text-black p-2 border rounded-2xl outline-none select-none mt-2" 
                                                 value={name} 
                                                 onChange={ev => setName(ev.target.value)} 
-                                                type="text" 
+                                                type="text"
+                                                maxlength="10"
                                                 placeholder="Username"/>
                                         <input className="register-in text-black p-2 border rounded-2xl outline-none select-none mt-2" 
                                                 value={password} 

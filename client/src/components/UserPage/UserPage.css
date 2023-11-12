@@ -9,12 +9,14 @@
 
 .log-in-slide.active {
     margin-top: 0px;
+    opacity: 1;
     transition-property: margin-top, opacity, z-index;
     transition-duration: 1s;
 }
 
 .log-in-slide.inactive {
     margin-top: 690px;
+    opacity: 0;
     transition-property: margin-top, opacity, z-index;
     transition-duration: 1s;
 }
