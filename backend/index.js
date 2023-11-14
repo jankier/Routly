@@ -8,6 +8,8 @@ const cookiePasrser = require('cookie-parser');
 require('dotenv').config();
 const app = express();
 
+const bcryptSalt = bcrypt.genSaltSync(10);
+
 app.use(express.json());
 app.use(cookiePasrser());
 
@@ -33,7 +35,7 @@ app.post('/register', async (req, res) => {
         const user = await User.create({
             email,
             name,
-            password,
+            password:bcrypt.hashSync(password, bcryptSalt),
         });
         res.json(user);
     }
@@ -53,7 +55,7 @@ app.post('/login', async (req, res) => {
             res.status(422).json('password not ok');
         }
     } else {
-        res.json('user not found');
+        res.status(422).json('user not found');
     }
 })
 

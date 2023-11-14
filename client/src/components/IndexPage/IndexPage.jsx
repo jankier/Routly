@@ -36,12 +36,13 @@ function IndexPage(){
     } else {
       var myLocation = new window.google.maps.Marker({
         position: {lat, lng},
-        title:"Hello World!"
+        title: "You are here!",
       });
       myLocation.setMap(map);
       map.panTo({lat, lng});
-      map.setZoom(15);
+      map.setZoom(10);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lat, lng])
 
   const loader = new Loader({
@@ -52,9 +53,9 @@ function IndexPage(){
   const mapOptions = {
     center: {
       lat: 52,
-      lng: 21,
+      lng: 18.296097,
     },
-    zoom: 10,
+    zoom: 7,
     disableDefaultUI: true,
     draggableCursor: 'default',
   };
@@ -68,6 +69,7 @@ function IndexPage(){
     .catch((e) => {
       console.log(e);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapEl])
 
   useEffect(() => {

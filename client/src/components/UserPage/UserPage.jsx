@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import axios from 'axios';
 import { UserContext } from "../../UserContext";
 import "./UserPage.css"
-const bcrypt = require('bcryptjs');
 
 function UserPage ({handleToggleLogin, loginSlide}) {
 
@@ -19,8 +18,6 @@ function UserPage ({handleToggleLogin, loginSlide}) {
     const [registeredEmail, setRegisteredEmail] = useState('');
     const [registeredPassword, setRegisteredPassword] = useState('');
 
-    const bcryptSalt = bcrypt.genSaltSync(10);
-
     const {user, setUser} = useContext(UserContext);
 
     const handleSignUpMember = () => {
@@ -33,7 +30,7 @@ function UserPage ({handleToggleLogin, loginSlide}) {
             await axios.post('/register', {
                 email,
                 name,
-                password:bcrypt.hashSync(password, bcryptSalt),
+                password,
             })
             setEmail('');
             setName('');
@@ -68,9 +65,9 @@ function UserPage ({handleToggleLogin, loginSlide}) {
             handleToggleLogin();
         } catch (error) {
             console.log(error);
-            setRegisteredEmail('');
-            setRegisteredPassword('');
-            log_in_failed[0].style.display = 'flex';
+            if (error.response.status === 422) {
+                log_in_failed[0].style.display = 'flex';
+            }
         } 
     }
 
@@ -152,7 +149,7 @@ function UserPage ({handleToggleLogin, loginSlide}) {
                                                 value={name} 
                                                 onChange={ev => setName(ev.target.value)} 
                                                 type="text"
-                                                maxlength="10"
+                                                maxLength="10"
                                                 placeholder="Username"/>
                                         <input className="register-in text-black p-2 border rounded-2xl outline-none select-none mt-2" 
                                                 value={password} 
