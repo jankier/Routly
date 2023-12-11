@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import IndexPage from './components/IndexPage/IndexPage.jsx';
 import Overlay from './components/Overlay/Overlay.jsx';
@@ -8,11 +9,14 @@ axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true;
 
 function App() {
+
+  const [coordinates, setCoordinates] = useState({});
+
   return (
     <div className='main bg-white'>
       <UserContextProvider>
-        <Overlay/>
-        <IndexPage/>
+        <Overlay coordinates={coordinates}/>
+        <IndexPage setCoordinates={setCoordinates}/>
       </UserContextProvider>
     </div>
   );

@@ -3,13 +3,13 @@ import axios from 'axios';
 import { UserContext } from "../../UserContext";
 import "./UserPage.css"
 
-function UserPage ({handleToggleLogin, loginSlide}) {
+function UserPage ({ handleToggleLogin, loginSlide }) {
 
-    // var log_in = document.getElementsByClassName("log-in");
-    // var register_in = document.getElementsByClassName("register-in");
-    var email_in_use = document.getElementsByClassName("email-in-use");
-    var log_in_failed = document.getElementsByClassName("log-in-failed");
-    var field_must_be_filled = document.getElementsByClassName("field-must-be-filled");
+    // let log_in = document.getElementsByClassName("log-in");
+    // let register_in = document.getElementsByClassName("register-in");
+    let email_in_use = document.getElementsByClassName("email-in-use");
+    let log_in_failed = document.getElementsByClassName("log-in-failed");
+    let field_must_be_filled = document.getElementsByClassName("field-must-be-filled");
 
     const [notAMember, setNotAMember] = useState(false);
     const [email, setEmail] = useState('');

@@ -4,8 +4,9 @@ import UserPage from "../UserPage/UserPage";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-function Overlay(){
+function Overlay({ coordinates }){
 
+    console.log(coordinates);
     const [loginSlide, setLoginSlide] = useState(false);
 
     const handleToggleLogin = () => {
